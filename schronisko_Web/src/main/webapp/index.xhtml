@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet name="css/styles.css" library="template" />
+</h:head>
+
+<ui:composition template="/templates/page-template.xhtml">
+
+
+
+	<ui:define name="pageContent">
+		<h:body>
+
+			<div class="grid grid-nogutter surface-section text-800">
+				<div
+					class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+					<section> <span class="block text-6xl font-bold mb-1">Twoja
+						odwaga, ich nowa szansa. </span>
+					<div class="text-6xl text-primary font-bold mb-3">Adoptuj i
+						kochaj!</div>
+					<p class="mt-0 mb-4 text-xl line-height-4">
+						W schroniskach czeka mnóstwo futrzanych przyjaciół, pragnących
+						naszej pomocy i troski.<br /> Ta strona jest mostem pomiędzy nimi
+						a sercem ludzi gotowych świadczyć im pomoc.
+					</p>
+
+					
+					</section>
+				</div>
+				<div class="col-12 md:col-6 overflow-hidden">
+					<p:graphicImage value="/resources/template/image/main.jpg"
+						library="primeblocks-app" alt="Zdjecie"
+						styleClass="md:ml-auto block md:h-full" width="900" height="350"
+						style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)" />
+				</div>
+			</div>
+
+		
+			<p:growl id="messages" showDetail="true" globalOnly="true"
+				closable="true" life="5000" sticky="false" />
+			<h:form id="form">
+
+				<div class="flex flex-column lg:flex-row  "
+					style="margin-left: 0%; margin-right: -0.4%;">
+					<div class="col-12 lg:col-3 surface-section" style="flex: 0 0 15%;">
+
+						<div class=" mt-8 px-3 text-center ">
+							<!-- MIASTO -->
+							<div class=" p-3 border-round-sm  font-bold max-w-12rem ">
+								<p:selectOneMenu class="w-12rem mb-1"
+									value="#{animalListBB.selectedCity}">
+									<f:selectItem itemValue="" itemLabel="Wybierz miasto" />
+									<f:selectItems value="#{animalListBB.listMiasto}" var="city"
+										itemValue="#{city}" itemLabel="#{city}" />
+									<p:ajax event="change" update="@form"
+										listener="#{animalListBB.filter}" />
+								</p:selectOneMenu>
+							</div>
+
+							<!-- Kategoria: Typ -->
+							<div class=" ">
+								<div class=" p-3  font-bold font-bold max-w-12rem  ">
+									<p:selectOneRadio class="w-12rem mb-1" id="typ"
+										value="#{animalListBB.selectedTyp}">
+										<f:selectItem itemValue="Pies" itemLabel="Pies" />
+										<f:selectItem itemValue="Kot" itemLabel="Kot" />
+										<p:ajax update="rasaKota rasaPsa"
+											listener="#{animalListBB.handleTypChange}"
+											event="valueChange" />
+									</p:selectOneRadio>
+								</div>
+							</div>
+
+							<!-- Kategoria: Rasa kota -->
+							<!-- <div class="inline-block h-4rem bg-primary font-bold text-center p-1 border-round "> -->
+							<div class="  ">
+								<div class=" p-3 border-round-sm  font-bold  max-w-12rem">
+									<p:selectOneMenu class="w-12rem mb-1" id="rasaKota"
+										value="#{animalListBB.selectedRasaKota}"
+										disabled="#{animalListBB.disableRasaKota}">
+										<f:selectItem itemValue="" itemLabel="Wybierz rasę kota" />
+										<f:selectItem itemValue="Dachowiec" itemLabel="Dachowiec" />
+										<f:selectItem itemValue="Rasowy" itemLabel="Rasowy" />
+										
+									</p:selectOneMenu>
+								</div>
+							</div>
+							<!-- Kategoria: Rasa psa -->
+							<div class="">
+								<div class=" p-3 border-round-sm  font-bold  max-w-12rem">
+									<p:selectOneMenu class="w-12rem mb-1" id="rasaPsa"
+										value="#{animalListBB.selectedRasaPsa}"
+										disabled="#{animalListBB.disableRasaPsa}">
+										<f:selectItem itemValue="" itemLabel="Wybierz rasę psa" />
+										<f:selectItem itemValue="Labrador" itemLabel="Labrador" />
+										<f:selectItem itemValue="Shih Tzu" itemLabel="Shih Tzu" />
+										<f:selectItem itemValue="Cocker Spaniel"
+											itemLabel="Cocker Spaniel" />
+										<f:selectItem itemValue="Fox Terrier" itemLabel="Fox Terrier" />
+										<f:selectItem itemValue="West Highland White Terrier"
+											itemLabel="West Highland White Terrier" />
+										<f:selectItem itemValue="Jack Russell Terrier"
+											itemLabel="Jack Russell Terrier" />
+										<f:selectItem itemValue="Akita" itemLabel="Akita" />
+										<f:selectItem itemValue="Husky" itemLabel="Husky" />
+										<f:selectItem itemValue="Maltanczyk" itemLabel="Maltanczyk" />
+										<f:selectItem itemValue="Yorkshire Terrier"
+											itemLabel="Yorkshire Terrier" />
+										<f:selectItem itemValue="Beagle" itemLabel="Beagle" />
+										<f:selectItem itemValue="Buldog" itemLabel="Buldog" />
+										<f:selectItem itemValue="Golden Retriever"
+											itemLabel="Golden Retriever" />
+										<f:selectItem itemValue="Mieszaniec" itemLabel="Mieszaniec" />
+										
+									</p:selectOneMenu>
+								</div>
+							</div>
+
+							<!-- Kategoria: Płeć -->
+							<div class="">
+								<div class=" p-3 border-round-sm  font-bold max-w-12rem">
+									<p:selectOneMenu class="w-12rem mb-1"
+										value="#{animalListBB.selectedPlec}">
+										<f:selectItem itemValue="" itemLabel="Wybierz płeć" />
+										<f:selectItem itemValue="Samiec" itemLabel="Samiec" />
+										<f:selectItem itemValue="Samica" itemLabel="Samica" />
+
+									</p:selectOneMenu>
+								</div>
+							</div>
+							<!-- Kategoria: Wiek -->
+							<div class="">
+								<div class=" p-3 border-round-sm  font-bold  max-w-12rem ">
+									<p:selectOneMenu class="w-12rem mb-1"
+										value="#{animalListBB.selectedWiek}" label="Wiek">
+										<f:selectItem itemValue="" itemLabel="Wybierz wiek" />
+										<f:selectItem itemValue="szczeniak" itemLabel="Szczeniak" />
+										<f:selectItem itemValue="młody" itemLabel="Młody" />
+										<f:selectItem itemValue="senior" itemLabel="Senior" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+
+
+							<!-- Kategoria: Waga -->
+							<div class=" ">
+								<div class=" p-3  border-round-sm y font-bold max-w-11rem mb-1">
+									<p:inputText id="wagaInput" label="Waga"
+										value="#{animalListBB.waga}" />
+									<p:slider id="wagaSlider" for="wagaInput" minValue="0"
+										maxValue="50" step="1" style="width:12rem; " />
+
+								</div>
+
+							</div>
+
+							<!-- Kategoria: Wielkość -->
+							<div class="">
+								<div class=" p-3 border-round-sm  font-bold max-w-12rem">
+									<p:selectOneMenu class="w-12rem mb-1"
+										value="#{animalListBB.selectedWielkosc}">
+										<f:selectItem itemValue="" itemLabel="Wybierz wielkość" />
+										<f:selectItem itemValue="duży" itemLabel="Duży" />
+										<f:selectItem itemValue="średni" itemLabel="Średni" />
+										<f:selectItem itemValue="mały" itemLabel="Mały" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+							<!-- Kategoria: Rodzaj włosia -->
+							<div class="">
+								<div class=" p-3 border-round-sm  font-bold max-w-12rem">
+									<p:selectOneMenu class="w-12rem mb-1" id="rodzajWlosia"
+										value="#{animalListBB.selectedRodzajWlosia}">
+										<f:selectItem itemValue="" itemLabel="Wybierz rodzaj włosia" />
+										<f:selectItem itemValue="Krótka" itemLabel="Krótka" />
+										<f:selectItem itemValue="Długa" itemLabel="Długa" />
+										<f:selectItem itemValue="Szorstka" itemLabel="Szorstka" />
+										<f:selectItem itemValue="Jedwabista" itemLabel="Jedwabista" />
+										
+									</p:selectOneMenu>
+								</div>
+							</div>
+
+							<!-- Kategoria: Kolor -->
+							<div class="">
+								<div class=" p-3 border-round-sm  font-bold max-w-12rem">
+									<p:selectOneMenu class="w-12rem mb-1" id="kolor"
+										value="#{animalListBB.selectedKolor}">
+										<f:selectItem itemLabel="Wybierz kolor" itemValue=""/>
+										<f:selectItem itemLabel="Brązowy" itemValue="Brązowy" />
+										<f:selectItem itemLabel="Czarny" itemValue="Czarny" />
+										<f:selectItem itemLabel="Szary" itemValue="Szary" />
+										<f:selectItem itemLabel="Beżowy" itemValue="Beżowy" />
+										<f:selectItem itemLabel="Rudy" itemValue="Rudy" />
+										<f:selectItem itemLabel="Biały" itemValue="Biały" />
+										<f:selectItem itemLabel="Inny" itemValue="Inny" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+							<!-- Kategoria: Kastrowany -->
+							<div class="">
+								<div class=" p-3 border-round-sm  font-bold max-w-12rem">
+									<p:selectOneMenu class="w-12rem mb-1" id="kastrowany"
+										value="#{animalListBB.selectedKastrowany}">
+										<f:selectItem itemValue="" itemLabel="Czy kastorwany" />
+										<f:selectItem itemValue="Tak" itemLabel="Tak" />
+										<f:selectItem itemValue="Nie" itemLabel="Nie" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+
+							<!-- Przycisk do filtrowania -->
+							<div class=" p-3 border-round-sm  font-bold  max-w-12rem">
+
+								<p:commandButton value="Filtruj" action="#{animalListBB.filter}"
+									update="animalView" />
+							</div>
+
+							<!-- Przycisk do czyszczenia filtrów -->
+
+							<div class=" p-3 border-round-sm  font-bold max-w-12rem">
+								<p:commandButton value="Wyczyść filtry"
+									action="#{animalListBB.resetForm}" update="@form" />
+							</div>
+						</div>
+
+
+					</div>
+					<div
+						class="product-card align-items-stretch justify-content-start p-2  "
+						style="width: 85%; flex: 1;">
+
+
+
+						<p:dataView rowIndexVar="idx" value="#{animalListBB.getList()}"
+							id="animalView" styleClass="dataView-panel"
+							itemStyleClass="product-grid-item px-6" class="animalView"
+							var="z" layout="grid" rows="16" paginator="true"
+							gridIcon="pi pi-th-large"
+							paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							gridRowStyleClass="lg:col-6 xl:col-3 md:col-6"
+							emptyMessage="Nie znaleziono żadnych rekordów.">
+							<p:dataViewGridItem>
+
+								<div
+									class="product-grid-item border-round-xl p-2 bg-primary align-items-center">
+
+									<div class="heart">
+										<p:commandButton id="favoriteBtn" class="favorite"
+											icon="#{animalListBB.isFavorite(z.zwierzeId) ? 'pi pi-heart-fill' : 'pi pi-heart'}"
+											actionListener="#{animalListBB.toggleFavorite(z.zwierzeId)}"
+											update=":form:animalView  messages">
+
+										</p:commandButton>
+									</div>
+									<h:commandLink
+										action="#{animalProfileBB.viewAnimalProfile(z.zwierzeId)}"
+										styleClass="no-style-link">
+										<f:param name="zwierzeId" value="#{z.zwierzeId}" />
+										<div class="product-grid-item-content text-center p-3 ">
+
+
+											<p:graphicImage class="product-image    "
+												value="/resources/template/image/#{z.zdjecieURL}"
+												alt="Zdjecie" />
+
+											<div class="product-name ">
+												<h:outputText value="#{z.imie}" style="font-weight:bold;" />
+											</div>
+
+											<div class="product-description text-center">
+												<h:outputText value="#{z.schroniska.nazwa}"
+													style="font-style:italic;" />
+											</div>
+											<div class="product-description text-center">
+												<h:outputText value="#{z.schroniska.miasto}" />
+											</div>
+										</div>
+									</h:commandLink>
+								</div>
+							</p:dataViewGridItem>
+
+
+						</p:dataView>
+					</div>
+				</div>
+			</h:form>
+
+
+			<!-- </p:panel> -->
+		</h:body>
+
+		<script type="text/javascript">
+			// <![CDATA[
+			function resetFormFields() {
+				// Znajdź formularz po ID i zresetuj wszystkie pola
+				document.getElementById('form').reset();
+				// Możesz też odświeżyć komponenty PrimeFaces, jeśli to konieczne
+				PF('form').refresh();
+			}
+			//  ]]>
+		</script>
+	</ui:define>
+
+</ui:composition>
+</html>

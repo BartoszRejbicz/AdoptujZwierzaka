@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="userId" value="#{editUserBB.userId}" />
+	<f:event type="preRenderView" listener="#{editUserBB.loadUser}" />
+</f:metadata>
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+		<body>
+
+			<h:head>
+				<h:outputStylesheet name="css/styles.css" library="template" />
+				<title>Edycja użytkownika</title>
+			</h:head>
+
+
+			<h:form class="edit-form-container">
+				<p:growl id="messages" showDetail="true" globalOnly="true"
+					closable="true" life="5000" sticky="false" />
+				<p:panel header="Dane użytkownika" columns="2">
+
+					<div class="edit-form">
+
+						<h:outputLabel for="name" value="Imie:"
+							class="block text-900 font-medium mb-2" />
+						<p:inputText id="name" value="#{editUserBB.user.imie}"
+							style="width:500px;" />
+
+						<h:outputLabel for="surname" value="Nazwisko:"
+							class="block text-900 font-medium mb-1" />
+						<p:inputText id="surname" value="#{editUserBB.user.nazwisko}"
+							style="width:500px;" />
+
+						<h:outputLabel for="rolename" value="Rola:"
+							class="block text-900 font-medium mb-2" />
+
+						<p:selectOneMenu id="rolename"
+							value="#{editUserBB.selectedRoleId}" style="width:500px;">
+							<f:selectItem itemLabel="Wybierz role" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{editUserBB.availableRoles}" var="role"
+								itemValue="#{role.rolaId}" itemLabel="#{role.nazwaRoli}" />
+						</p:selectOneMenu>
+
+
+
+						<div>
+							<p:commandButton value="Zapisz" action="#{editUserBB.saveUser}"
+								update="messages" class="block  font-medium mb-2"
+								style="width:500px;" />
+
+							<p:commandButton value="Anuluj"
+								action="#{editUserBB.returnToList}"
+								class="block  font-medium mb-2" style="width:500px;" />
+						</div>
+					</div>
+
+				</p:panel>
+			</h:form>
+		</body>
+	</ui:define>
+</ui:composition>
+
+</html>
+
+
+

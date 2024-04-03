@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+
+		<p:panel header="Rejestracja">
+
+			<h:form id="registerForm"
+				class="flex align-items-center justify-content-center  ">
+
+				<h:panelGrid id="grid" class="" styleClass="w-6 mb-3" width="w-6"
+					columns="1" celpadding="8">
+					<p:growl id="messages" showDetail="true" globalOnly="true"
+						autoUpdate="true" closable="true" />
+
+					<h:outputLabel class="block text-900 font-medium mb-2" for="email"
+						value="#{txtReg.email}" />
+					<span id="emailFeedback" class="text-orange-500"></span>
+					<p:inputText id="email" styleClass="w-full mb-3" type="email"
+						value="#{registrationBB.email}" required="true"
+						requiredMessage="#{txtRegErr.registerRequired}"
+						onkeyup="validateEmail(this.value)" />
+
+					<p:message for="email" />
+
+
+
+					<h:outputLabel class="block text-900 font-medium mb-2"
+						for="u-haslo" value="#{txtReg.password}"></h:outputLabel>
+
+					<span id="passwordFeedback" class="text-orange-500"></span>
+
+					<p:inputText id="u-haslo" type="password" styleClass="w-full mb-3"
+						value="#{registrationBB.haslo}" required="true"
+						requiredMessage="#{txtRegErr.registerRequired}"
+						onkeyup="validatePassword(this.value);">
+						<f:validateLength maximum="30" />
+					</p:inputText>
+					<p:message for="u-haslo" />
+
+
+
+					<h:outputLabel class="block text-900 font-medium mb-2"
+						for="u-confirmHaslo" value="#{txtReg.password2}"></h:outputLabel>
+
+					<span id="passwordMatchFeedback" class="text-orange-500"></span>
+
+					<p:inputText id="u-confirmHaslo" type="password"
+						styleClass="w-full mb-3" value="#{registrationBB.confirmHaslo}"
+						required="true" requiredMessage="#{txtRegErr.registerRequired}" />
+
+					<p:message for="u-confirmHaslo" />
+
+
+					<h:outputLabel class="block text-900 font-medium mb-2" for="u-imie"
+						value="#{txtReg.imie}" />
+					<p:inputText id="u-imie" styleClass="w-full mb-3"
+						value="#{registrationBB.imie}" required="true"
+						requiredMessage="#{txtRegErr.registerRequired}"
+						onblur="capitalizeInput(this)" />
+					<p:message for="u-imie" />
+
+
+					<h:outputLabel class="block text-900 font-medium mb-2"
+						for="u-nazwisko" value="#{txtReg.nazwisko}" />
+					<p:inputText id="u-nazwisko" styleClass="w-full mb-3"
+						value="#{registrationBB.nazwisko}" required="true"
+						requiredMessage="#{txtRegErr.registerRequired}"
+						onblur="capitalizeInput(this)" />
+					<p:message for="u-nazwisko" />
+
+
+
+					<p:commandButton id="button" styleClass="w-full"
+						icon="pi pi-fw pi-user-plus" value="#{txtReg.registerButton}"
+						action="#{registrationBB.register()}"
+						update="registerForm :registerForm:messages" />
+
+				</h:panelGrid>
+			</h:form>
+			<script type="text/javascript">
+				// <![CDATA[
+				function capitalizeInput(element) {
+					var value = element.value;
+					element.value = value.charAt(0).toUpperCase()
+							+ value.slice(1).toLowerCase();
+				}
+
+				function validatePassword(haslo) {
+					var feedbackElement = document
+							.getElementById('passwordFeedback');
+
+					if (haslo.length < 8 || !/\d/.test(haslo)
+							|| !/[^a-zA-Z0-9]/.test(haslo)) {
+						feedbackElement.innerText = 'Hasło musi mieć co najmniej 8 znaków. Musi zawierać co najmniej jedną cyfrę i znak specjalny.';
+						return;
+					}
+
+					feedbackElement.innerText = '';
+				}
+
+				function validateEmail(email) {
+					var feedbackElement = document
+							.getElementById('emailFeedback');
+
+					// Sprawdzenie, czy email zawiera '@'
+					if (email.indexOf('@') === -1) {
+						feedbackElement.innerText = 'Email musi zawierać @';
+						return false;
+					}
+
+					// Sprawdzenie, czy email składa się z małych liter
+					if (email !== email.toLowerCase()) {
+						feedbackElement.innerText = 'Email może zawierać tylko małe litery';
+						return false;
+					}
+
+					feedbackElement.innerText = '';
+					return true;
+				}
+				
+				
+				//  ]]>
+			</script>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

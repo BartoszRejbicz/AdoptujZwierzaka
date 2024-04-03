@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<f:metadata>
+		<f:viewParam name="schroniskoId"
+			value="#{shelterProfileBB.schroniskoId}" />
+
+		<f:event type="preRenderView"
+			listener="#{shelterProfileBB.loadSchronisko}" />
+	</f:metadata>
+	<h:head>
+		<h:outputStylesheet name="css/styles.css" library="template" />
+	</h:head>
+	<ui:composition template="/templates/page-template.xhtml">
+
+		<ui:define name="pageContent">
+
+			<h:body>
+
+
+
+
+
+				<h:form>
+					<p:panel header="Dane schroniska">
+						<p:panelGrid columns="2" var="schronisko">
+
+							<p:row>
+								<p:column>
+									<h:outputText class=" text-900  font-medium mb-2 right-100"
+										value="Nazwa:" />
+								</p:column>
+								<p:column>
+									<h:outputText class=" text-900 font-medium mb-2"
+										value="#{shelterProfileBB.schronisko.nazwa}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText class="b text-900 font-medium mb-2 left-100"
+										value="Adres:" />
+								</p:column>
+								<p:column>
+									<h:outputText class="text-900 font-medium mb-2"
+										value="#{shelterProfileBB.schronisko.adres}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText class=" text-900 font-medium mb-2"
+										value="Miasto:" />
+								</p:column>
+								<p:column>
+									<h:outputText class=" text-900 font-medium mb-2"
+										value="#{shelterProfileBB.schronisko.miasto}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText class=" text-900 font-medium mb-2" value="Email:" />
+								</p:column>
+								<p:column>
+									<h:outputText class=" text-900 font-medium mb-2"
+										value="#{shelterProfileBB.schronisko.email}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText class=" text-900 font-medium mb-2"
+										value="Numer telefonu:" />
+								</p:column>
+								<p:column>
+									<h:outputText class=" text-900 font-medium mb-2"
+										value="#{shelterProfileBB.schronisko.nrTel}" />
+								</p:column>
+							</p:row>
+
+						</p:panelGrid>
+					</p:panel>
+				</h:form>
+				<h:form>
+					<div class="button-container">
+						<p:commandButton icon="pi pi-plus" value=" Dodaj zwierzę"
+							action="/schronisko/addAnimal.xhtml?faces-redirect=true"
+							style="font-size: 1.5rem;width:60%;" />
+					</div>
+				</h:form>
+				<h:form id="shelterForm">
+					<p:growl id="messages" showDetail="true" globalOnly="true"
+						closable="true" life="5000" sticky="false" />
+
+					<p:dataView value="#{shelterProfileBB.zwierzetaList}" id="dataShel"
+						var="animal" layout="grid" rows="12" paginator="true"
+						class="align-items-center" itemType="none"
+						gridRowStyleClass="lg:col-6 xl:col-3 md:col-6"
+						paginatorPosition="top" emptyMessage="Brak zwierząt w schronisku.">
+						<f:facet name="header">
+
+
+							<h2>Zwierzeta w schronisku</h2>
+						</f:facet>
+
+						<p:dataViewGridItem class=" ">
+							<div class="product-grid-item bg-primary p-2 ">
+								<div class="product-grid-item-content text-center p-3 "
+									style="height: 370px;">
+									<h:commandLink
+										action="#{animalProfileBB.viewAnimalProfile(animal.zwierzeId)}"
+										class="no-style-link">
+										<f:param name="zwierzeId" value="#{animal.zwierzeId}" />
+
+										<p:graphicImage class="product-image"
+											value="/resources/template/image/#{animal.zdjecieURL}"
+											alt="Zdjęcie" />
+
+										<div class="product-name">
+											<h:outputText value="#{animal.imie}" class="product-name" />
+										</div>
+
+										<div class="product-description">
+											<h:outputText
+												value="#{animal.typ == 'Pies' ? animal.rasaPsa : animal.rasaKota}" />
+										</div>
+
+									</h:commandLink>
+								</div>
+								<div>
+									<p:commandButton icon="pi pi-trash" title="Usuń zwierzę z bazy"
+										class="shadow-2 border-black-alpha-60 bg-red-300"
+										action="#{shelterProfileBB.removeFromShelter(animal.zwierzeId)}"
+										update=":shelterForm:messages  :shelterForm:dataShel" />
+									<p:commandButton icon="pi pi-pencil" title="Edytuj zwierzę"
+										class="shadow-2 border-black-alpha-60 bg-yellow-300 ml-2 "
+										action="#{shelterProfileBB.editAnimal(animal.zwierzeId)}"
+										update=" :shelterForm:messages ">
+										<!--  <f:setPropertyActionListener
+											target="#{shelterProfileBB.selectedAnimal.zwierzeId}"
+											value="#{animal.zwierzeId}" /> -->
+									</p:commandButton>
+
+								</div>
+							</div>
+
+
+						</p:dataViewGridItem>
+					</p:dataView>
+
+
+
+
+				</h:form>
+
+
+
+			</h:body>
+
+		</ui:define>
+
+	</ui:composition>
+</f:view>
+</html>

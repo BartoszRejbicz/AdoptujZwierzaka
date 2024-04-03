@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+
+		<p:panel header="">
+
+			<div class="flex align-items-center justify-content-center">
+    <div class="surface-card p-4   lg:w-6">
+        <div class="text-center mb-5">
+        	
+        
+            <p:graphicImage name="/image/logo.png" library="template" alt="Logo"
+                            height="100" styleClass="mb-3 border-round-sm"/>
+            <div class="text-900 text-3xl font-medium mb-3">Witaj w świecie futrzaków!</div>
+            
+        </div>
+
+        <div>
+        	<h:form id="loginForm">
+        	<p:growl id="messages" showDetail="true" globalOnly="true"
+						autoUpdate="true" closable="true" />
+            <h:outputLabel for="u-email" class="block text-900 font-medium mb-2">Email</h:outputLabel>
+                        <p:inputText id="u-email" styleClass="w-full mb-3" value="#{loginBB.email}" placeholder="Email adres" required="true"/>
+                        <h:outputLabel for="u-haslo" class="block text-900 font-medium mb-2">Password</h:outputLabel>
+                        <p:inputText id="u-haslo" type="password" styleClass="w-full mb-3" value="#{loginBB.haslo}" placeholder="Hasło" required="true"/>
+
+            
+
+            <p:commandButton  value="Sign In" action="#{loginBB.doLogin()}" update="@form" icon="pi pi-user"  outcome="index" styleClass="w-full"/>
+            </h:form>
+        </div>
+    </div>
+</div>
+
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
+</html>

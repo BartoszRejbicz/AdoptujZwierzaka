@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<f:view>
+	<f:metadata>
+		<f:viewParam name="zwierzeId"
+			value="#{editAnimalBB.selectedAnimal.zwierzeId}" />
+		<f:event type="preRenderView" listener="#{editAnimalBB.init}" />
+	</f:metadata>
+	<h:head>
+		<h:outputStylesheet name="css/styles.css" library="template" />
+		<title>Edytuj Zwierzę</title>
+	</h:head>
+	<ui:composition template="/templates/page-template.xhtml">
+
+		<ui:define name="pageContent">
+
+			<h:body>
+				<h:form id="editAnimalForm" class="edit-form-container">
+					<p:panel header="Edycja Zwierzęcia">
+						<h:panelGrid class="">
+
+
+
+							<div class="edit-form">
+								<h:outputLabel value="Imię:" for="editName"
+									class="block text-900 font-medium mb-2" />
+								<p:inputText id="editName"
+									value="#{editAnimalBB.selectedAnimal.imie}"
+									style="width:500px;" />
+
+								<h:outputLabel for="editType" value="Typ:"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu id="editType"
+									value="#{editAnimalBB.selectedAnimal.typ}" style="width:500px;">
+									<f:selectItem itemLabel="Wybierz Typ" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Pies" itemValue="Pies" />
+									<f:selectItem itemLabel="Kot" itemValue="Kot" />
+								</p:selectOneMenu>
+
+
+								<h:outputLabel for="editAge" value="Wiek:"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu id="editAge"
+									value="#{editAnimalBB.selectedAnimal.wiek}"
+									style="width:500px;">
+									<f:selectItem itemLabel="Wybierz wiek" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Szczeniak" itemValue="Szczeniak" />
+									<f:selectItem itemLabel="Młody" itemValue="Młody" />
+									<f:selectItem itemLabel="Dorosły" itemValue="Dorosły" />
+									<f:selectItem itemLabel="Senior" itemValue="Senior" />
+								</p:selectOneMenu>
+
+
+								<h:outputLabel for="editWeight" value="Waga:"
+									class="block text-900 font-medium mb-2" />
+								<p:inputNumber id="editWeight"
+									value="#{editAnimalBB.selectedAnimal.waga}"
+									style="width:500px;" />
+
+
+								<h:outputLabel for="editBreedDog" value="Rasa psa:"
+									rendered="#{editAnimalBB.selectedAnimal.typ eq 'Pies'}"
+									class="block text-900 font-medium mb-2" />
+								<p:inputText id="editBreedDog"
+									value="#{editAnimalBB.selectedAnimal.rasaPsa}"
+									rendered="#{editAnimalBB.selectedAnimal.typ eq 'Pies'}"
+									style="width:500px;" />
+
+								<h:outputLabel for="editBreedCat" value="Rasa kota:"
+									rendered="#{editAnimalBB.selectedAnimal.typ eq 'Kot'}"
+									class="block text-900 font-medium mb-2" />
+								<p:inputText id="editBreedCat"
+									value="#{editAnimalBB.selectedAnimal.rasaKota}"
+									rendered="#{editAnimalBB.selectedAnimal.typ eq 'Kot'}"
+									style="width:500px;" />
+
+
+								<h:outputLabel for="editGender" value="Płeć:"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu id="editGender"
+									value="#{editAnimalBB.selectedAnimal.plec}"
+									style="width:500px;">
+									<f:selectItem itemLabel="Wybierz plec" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Samiec" itemValue="Samiec" />
+									<f:selectItem itemLabel="Samica" itemValue="Samica" />
+								</p:selectOneMenu>
+
+
+								<h:outputLabel for="editColor" value="Kolor:"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu id="editColor"
+									value="#{editAnimalBB.selectedAnimal.kolor}"
+									style="width:500px;">
+									<f:selectItem itemLabel="Wybierz kolor" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Brązowy" itemValue="Brązowy" />
+									<f:selectItem itemLabel="Czarny" itemValue="Czarny" />
+									<f:selectItem itemLabel="Szary" itemValue="Szary" />
+									<f:selectItem itemLabel="Beżowy" itemValue="Beżowy" />
+									<f:selectItem itemLabel="Rudy" itemValue="Rudy" />
+									<f:selectItem itemLabel="Biały" itemValue="Biały" />
+									<f:selectItem itemLabel="Inny" itemValue="Inny" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="editHeight" value="Wielkość:"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu id="editHeight"
+									value="#{editAnimalBB.selectedAnimal.wielkosc}"
+									style="width:500px;">
+									<f:selectItem itemLabel="Wybierz wielkość" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Mały" itemValue="Mały" />
+									<f:selectItem itemLabel="Średni" itemValue="Średni" />
+									<f:selectItem itemLabel="Duży" itemValue="Duży" />
+								</p:selectOneMenu>
+
+
+
+								<h:outputLabel for="editFurType" value="Rodzaj włosia:"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu id="editFurType"
+									value="#{editAnimalBB.selectedAnimal.rodzajWlosia}"
+									style="width:500px;">
+									<f:selectItem itemLabel="Wybierz rodzaj włosia" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Krótka" itemValue="Krótka" />
+									<f:selectItem itemLabel="Długa" itemValue="Długa" />
+									<f:selectItem itemLabel="Szorstka" itemValue="Szorstka" />
+									<f:selectItem itemLabel="Jedwabista" itemValue="Jedwabista" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="editCastrated" value="Czy był kastrowany?"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu id="editCastrated"
+									value="#{editAnimalBB.selectedAnimal.kastrowany}"
+									style="width:500px;">
+									<f:selectItem itemLabel="Czy był kastorowany:"
+										itemValue="#{editAnimalBB.selectedAnimal.kastrowany}"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Tak" itemValue="true" />
+									<f:selectItem itemLabel="Nie" itemValue="false" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="editBehave" value="Cechy zachowania:"
+									class="block text-900 font-medium mb-2" />
+								<p:inputTextarea id="editBehave" autoResize="true"
+									value="#{editAnimalBB.selectedAnimal.cechyZachowania}"
+									style="width:500px;" />
+
+								<h:outputLabel for="editIllnes" value="Przebyte choroby:" />
+								<p:inputTextarea id="editIllnes" autoResize="true"
+									value="#{editAnimalBB.selectedAnimal.przebyteChoroby}"
+									style="width:500px;" />
+
+								<h:outputLabel for="editDescript" value="Opis:"
+									class="block text-900 font-medium mb-2" />
+								<p:inputTextarea id="editDescript" autoResize="true"
+									value="#{editAnimalBB.selectedAnimal.opis}"
+									style="width:500px;" />
+
+								<div>
+									<p:commandButton value="Zapisz"
+										action="#{editAnimalBB.saveEdit}"
+										update=":editAnimalForm:messages editAnimalForm" ajax="false"
+										style="width:500px;" class="block font-medium mb-2" />
+									<p:commandButton value="Anuluj"
+										action="#{editAnimalBB.returnToList}" immediate="true"
+										style="width:500px;" />
+
+								</div>
+							</div>
+						</h:panelGrid>
+					</p:panel>
+				</h:form>
+			</h:body>
+
+		</ui:define>
+
+	</ui:composition>
+</f:view>
+</html>

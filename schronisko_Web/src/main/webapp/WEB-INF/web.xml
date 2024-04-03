@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+	version="5.0">
+
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<context-param>
+		<param-name>jakarta.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.apache.myfaces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>luna-amber</param-value>
+	</context-param>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<filter>
+		<filter-name>SecurityFilter</filter-name>
+		<filter-class>simplesecurity.SecurityFilter</filter-class>
+		<init-param>
+			<param-name>noPermitionPage</param-name>
+			<param-value>/NoPermissionPage.xhtml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>permissions</param-name>
+			<param-value>
+/resources/template/image: PUBLIC;
+/resources/template/css: PUBLIC;
+/jakarta.faces.resource : PUBLIC;
+/userLogin.xhtml : PUBLIC;
+/userRegister.xhtml : PUBLIC;
+/profile/userProfile.xhtml: PUBLIC;
+/animalProfile.xhtml : PUBLIC;
+/NoPermissionPage.xhtml : PUBLIC;
+/index.xhtml : PUBLIC;
+/admin/userList.xhtml : admin;
+/admin/addShelter.xhtml : admin;
+/admin/editUser.xhtml : admin;
+/schronisko/addAnimal.xhtml : schronisko;
+/schronisko/editAnimal.xhtml : schronisko;
+/schronisko/shelterAnimalsList.xhtml : schronisko;
+
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>invalidateOnRemoteAddressChange</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>invalidateOnRemoteHostChange</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>invalidateOnRemotePortChange</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>SecurityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+</web-app>
+ 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+		<h:body>
+
+			<h:head>
+				<h:outputStylesheet name="css/styles.css" library="template" />
+				<title>Dodaj Schronisko</title>
+			</h:head>
+
+			<h:form id="form" class="edit-form-container">
+				<p:growl id="messages" showDetail="true" globalOnly="true"
+					closable="true" life="5000" sticky="false" />
+				<p:panel header="Dodaj schronisko">
+
+					<div class="edit-form">
+						<!-- Pola dla danych schroniska -->
+						<h:outputLabel for="nazwa" value="Nazwa:"
+							class="block text-900 font-medium mb-2" />
+						<p:inputText id="nazwa" value="#{addShelterBB.nazwa}"
+							required="true" style="width:500px;" />
+
+						<h:outputLabel for="adres" value="Adres:"
+							class="block text-900 font-medium mb-2" />
+						<p:inputText id="adres" value="#{addShelterBB.adres}"
+							required="true" style="width:500px;"
+							pattern="^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+\s\d+,\s\d{2}-\d{3}\s[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$"
+							title="Wpisz adres w formacie: Ulica 1234, 00-000" />
+
+						<h:outputLabel for="miasto" value="Miasto:"
+							class="block text-900 font-medium mb-2" />
+						<p:inputText id="miasto" value="#{addShelterBB.miasto}"
+							required="true" style="width:500px;" />
+
+						<h:outputLabel for="nrTel" value="Nr telefonu:"
+							class="block text-900 font-medium mb-2" />
+						<p:inputText id="nrTel" value="#{addShelterBB.nrTel}"
+							onfocus="if(this.value == '0') { this.value = ''; }"
+							required="true" style="width:500px;" maxlength="9" />
+
+						<h:outputLabel for="userEmail" value="Email użytkownika:"
+							class="block text-900 font-medium mb-2" />
+						<p:selectOneMenu id="userEmail"
+							value="#{addShelterBB.selectedUserEmail}" required="true"
+							style="width:500px;">
+							<f:selectItem itemLabel="Wybierz użytkownika" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{addShelterBB.availableSchroniskoUsers}"
+								var="user" itemLabel="#{user.email}" itemValue="#{user.email}" />
+						</p:selectOneMenu>
+
+						<div>
+							<p:commandButton value="Dodaj Schronisko"
+								action="#{addShelterBB.addShelter}" update=":form:messages"
+								style="width:500px;" class="block  font-medium mb-2" />
+						</div>
+					</div>
+
+				</p:panel>
+
+			</h:form>
+
+		</h:body>
+	</ui:define>
+</ui:composition>
+
+</html>

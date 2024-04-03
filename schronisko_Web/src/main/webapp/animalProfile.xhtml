@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<f:metadata>
+            <f:viewParam name="zwierzeId" value="#{animalProfileBB.zwierzeId}" />
+            <f:event type="preRenderView" listener="#{animalProfileBB.loadAnimal}" />
+        </f:metadata>
+<h:head>
+    <title>Profil Zwierzęcia</title>
+    <h:outputStylesheet name="css/styles.css" library="template" />
+</h:head>
+<ui:composition template="/templates/page-template.xhtml">
+
+
+
+	<ui:define name="pageContent">
+		<h:body>
+		 <f:view>
+    <h:form>
+   
+        
+
+        <h:form id="formAnimalProfile">
+  <div class="profile-container surface-ground" >
+    <div class="profile-image" >
+      <p:graphicImage value="/resources/template/image/#{animalProfileBB.animal.zdjecieURL}" styleClass="animal-image" alt="Zdjęcie zwierzęcia" />
+    </div>
+    <div class="profile-details text-primary bg-primary-reverse  " >
+      <div class="detail">
+        <span class="detail-label">Imię:</span>
+        <span class="detail-value">#{animalProfileBB.animal.imie}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Typ:</span>
+        <span class="detail-value">#{animalProfileBB.animal.typ}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Rasa:</span>
+        <span class="detail-value">#{animalProfileBB.animal.typ == 'Pies' ? animalProfileBB.animal.rasaPsa : animalProfileBB.animal.rasaKota}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Wiek:</span>
+        <span class="detail-value">#{animalProfileBB.animal.wiek}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Waga:</span>
+        <span class="detail-value">#{animalProfileBB.animal.waga} Kg</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Wielkość:</span>
+        <span class="detail-value">#{animalProfileBB.animal.wielkosc}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Płeć:</span>
+        <span class="detail-value">#{animalProfileBB.animal.plec}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Rodzaj włosia:</span>
+        <span class="detail-value">#{animalProfileBB.animal.rodzajWlosia}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Kolor:</span>
+        <span class="detail-value">#{animalProfileBB.animal.kolor}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Cechy zachowania:</span>
+        <span class="detail-value">#{animalProfileBB.animal.cechyZachowania}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Przebyte choroby:</span>
+        <span class="detail-value">#{animalProfileBB.animal.przebyteChoroby}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Czy był kastrowany:</span>
+        <span class="detail-value">#{animalProfileBB.animal.kastrowany}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Opis:</span>
+        <span class="detail-value">#{animalProfileBB.animal.opis}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Schronisko:</span>
+        <span class="detail-value">#{animalProfileBB.animal.schroniska.nazwa}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Adres Schroniska:</span>
+        <span class="detail-value">#{animalProfileBB.animal.schroniska.adres}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Miasto:</span>
+        <span class="detail-value">#{animalProfileBB.animal.schroniska.miasto}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Nr Telefonu:</span>
+        <span class="detail-value">#{animalProfileBB.animal.schroniska.nrTel}</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">Adres e-mail:</span>
+        <span class="detail-value">#{animalProfileBB.animal.schroniska.email}</span>
+      </div>
+    </div>
+  </div>
+</h:form>
+
+
+        <!-- Link do powrotu do listy zwierząt -->
+        <!-- <h:link value="Powrót do listy" outcome="/index" /> -->
+      
+    </h:form>
+     </f:view>
+</h:body>
+</ui:define>
+
+</ui:composition>
+</html>

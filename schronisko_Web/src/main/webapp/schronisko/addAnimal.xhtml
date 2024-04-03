@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<h:outputStylesheet name="css/styles.css" library="template" />
+	<title>Dodaj Zwierzę</title>
+</h:head>
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+		<h:body>
+			<h:form enctype="multipart/form-data" class="edit-form-container"
+				rendered="#{loginBB.isUserInRole('schronisko')}">
+				<p:growl id="messages" showDetail="true" globalOnly="true"
+					closable="true" life="5000" sticky="false" />
+				<p:panel header="Dodaj Zwierzę">
+					<h:panelGrid columnClasses="uniform-width,uniform-width">
+
+						<!-- Pola formularza -->
+						<div class="edit-form">
+
+							<h:outputLabel for="name" value="Imię:"
+								class="block text-900 font-medium mb-2" />
+							<p:inputText id="name" value="#{addAnimalBB.imie}"
+								required="true" label="Imię" style="width:500px;" />
+
+							<h:outputLabel for="type" value="Typ:"
+								class="block text-900 font-medium mb-2" />
+							<p:selectOneMenu id="type" value="#{addAnimalBB.typ}"
+								update="race" required="true" style="width:500px;">
+								<f:selectItem itemLabel="Wybierz Typ" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Pies" itemValue="Pies" />
+								<f:selectItem itemLabel="Kot" itemValue="Kot" />
+								<p:ajax listener="#{addAnimalBB.onTypeChange}"
+									update="rasaPanel" />
+							</p:selectOneMenu>
+
+							<p:panel id="rasaPanel" styleClass="no-border">
+								<h:outputLabel for="breedDog" value="Rasa psa:"
+									rendered="#{addAnimalBB.typ eq 'Pies'}"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu value="#{addAnimalBB.rasaPsa}"
+									rendered="#{addAnimalBB.typ eq 'Pies'}" required="true"
+									style="width:500px;">
+									<f:selectItem itemLabel="Wybierz rasę psa" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Mieszaniec" itemValue="Mieszaniec" />
+									<f:selectItem itemLabel="Labrador" itemValue="Labrador" />
+									<f:selectItem itemLabel="Golden Retriever"
+										itemValue="Golden Retriever" />
+									<f:selectItem itemLabel="Buldog" itemValue="Buldog" />
+									<f:selectItem itemLabel="Beagle" itemValue="Beagle" />
+									<f:selectItem itemLabel="Yorkshire Terrier"
+										itemValue="Yorkshire Terrier" />
+									<f:selectItem itemLabel="Shih Tzu" itemValue="Shih Tzu" />
+									<f:selectItem itemLabel="Maltańczyk" itemValue="Maltańczyk" />
+									<f:selectItem itemLabel="Owczarek Niemiecki"
+										itemValue="Owczarek Niemiecki" />
+									<f:selectItem itemLabel="Husky" itemValue="Husky" />
+									<f:selectItem itemLabel="Akita" itemValue="Akita" />
+									<f:selectItem itemLabel="Border Collie"
+										itemValue="Border Collie" />
+									<f:selectItem itemLabel="Jack Russell Terrier"
+										itemValue="Jack Russell Terrier" />
+									<f:selectItem itemLabel="West Highland White Terrier"
+										itemValue="West Highland White Terrier" />
+									<f:selectItem itemLabel="Fox Terrier" itemValue="Fox Terrier" />
+									<f:selectItem itemLabel="Cocker Spaniel"
+										itemValue="Cocker Spaniel" />
+								</p:selectOneMenu>
+
+
+								<h:outputLabel for="breedCat" value="Rasa kota:"
+									rendered="#{addAnimalBB.typ eq 'Kot'}"
+									class="block text-900 font-medium mb-2" />
+								<p:selectOneMenu value="#{addAnimalBB.rasaKota}"
+									rendered="#{addAnimalBB.typ eq 'Kot'}" required="true"
+									style="width:500px;">
+									<f:selectItem itemLabel="Wybierz rasę kota" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Mieszaniec" itemValue="Mieszaniec" />
+									<f:selectItem itemLabel="Rasowy" itemValue="Rasowy" />
+								</p:selectOneMenu>
+
+							</p:panel>
+
+
+							<h:outputLabel for="age" value="Wiek:"
+								class="block text-900 font-medium mb-2" />
+							<p:selectOneMenu id="age" value="#{addAnimalBB.wiek}"
+								required="true" style="width:500px;">
+								<f:selectItem itemLabel="Wybierz wiek" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Szczeniak" itemValue="Szczeniak" />
+								<f:selectItem itemLabel="Młody" itemValue="Młody" />
+								<f:selectItem itemLabel="Dorosły" itemValue="Dorosły" />
+								<f:selectItem itemLabel="Senior" itemValue="Senior" />
+							</p:selectOneMenu>
+
+
+							<h:outputLabel for="weight" value="Waga:"
+								class="block text-900 font-medium mb-2" />
+							<p:inputNumber id="weight" value="#{addAnimalBB.waga}"
+								maxValue="50" required="true" style="width:15rem;" />
+
+
+							<h:outputLabel for="gender" value="Płeć:"
+								class="block text-900 font-medium mb-2" />
+							<p:selectOneMenu id="gender" value="#{addAnimalBB.plec}"
+								required="true" style="width:500px;">
+								<f:selectItem itemLabel="Wybierz plec" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Samiec" itemValue="Samiec" />
+								<f:selectItem itemLabel="Samica" itemValue="Samica" />
+							</p:selectOneMenu>
+
+
+							<h:outputLabel for="color" value="Kolor:"
+								class="block text-900 font-medium mb-2" />
+							<p:selectOneMenu id="color" value="#{addAnimalBB.kolor}"
+								required="true" style="width:500px;">
+								<f:selectItem itemLabel="Wybierz kolor" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Brązowy" itemValue="Brązowy" />
+								<f:selectItem itemLabel="Czarny" itemValue="Czarny" />
+								<f:selectItem itemLabel="Szary" itemValue="Szary" />
+								<f:selectItem itemLabel="Beżowy" itemValue="Beżowy" />
+								<f:selectItem itemLabel="Rudy" itemValue="Rudy" />
+								<f:selectItem itemLabel="Biały" itemValue="Biały" />
+								<f:selectItem itemLabel="Inny" itemValue="Inny" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="height" value="Wielkość:"
+								class="block text-900 font-medium mb-2" />
+							<p:selectOneMenu id="height" value="#{addAnimalBB.wielkosc}"
+								required="true" style="width:500px;">
+								<f:selectItem itemLabel="Wybierz wielkość" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Mały" itemValue="Mały" />
+								<f:selectItem itemLabel="Średni" itemValue="Średni" />
+								<f:selectItem itemLabel="Duży" itemValue="Duży" />
+							</p:selectOneMenu>
+
+
+
+							<h:outputLabel for="furType" value="Rodzaj włosia:"
+								class="block text-900 font-medium mb-2" />
+							<p:selectOneMenu id="furType" value="#{addAnimalBB.rodzajWlosia}"
+								required="true" style="width:500px;">
+								<f:selectItem itemLabel="Wybierz rodzaj włosia" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Krótka" itemValue="Krótka" />
+								<f:selectItem itemLabel="Długa" itemValue="Długa" />
+								<f:selectItem itemLabel="Szorstka" itemValue="Szorstka" />
+								<f:selectItem itemLabel="Jedwabista" itemValue="Jedwabista" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="castrated" value="Czy kastrowany?"
+								class="block text-900 font-medium mb-2" />
+							<p:selectOneMenu id="castrated" value="#{addAnimalBB.kastrowany}"
+								required="true" style="width:500px;">
+								<f:selectItem itemLabel="Czy był kastorowany:" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Tak" itemValue="Tak" />
+								<f:selectItem itemLabel="Nie" itemValue="Nie" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="behave" value="Cechy zachowania:"
+								class="block text-900 font-medium mb-2" />
+							<p:inputTextarea id="behave" autoResize="true"
+								value="#{addAnimalBB.cechyZachowania}" style="width:500px;" />
+
+							<h:outputLabel for="illnes" value="Przebyte choroby:"
+								class="block text-900 font-medium mb-2" />
+							<p:inputTextarea id="illnes" autoResize="true"
+								value="#{addAnimalBB.przebyteChoroby}" style="width:500px;" />
+
+							<h:outputLabel for="descript" value="Opis:"
+								class="block text-900 font-medium mb-2" />
+							<p:inputTextarea id="descript" autoResize="true"
+								value="#{addAnimalBB.opis}" style="width:500px;" />
+
+
+							<h:outputLabel for="image" value="Zdjęcie:"
+								class=" block text-900 font-medium mb-2" />
+							<p:fileUpload value="#{addAnimalBB.file}" mode="simple"
+								skinSimple="true" required="true" />
+							<div class="edit-buttons">
+								<p:commandButton value="Dodaj zwierze"
+									action="#{addAnimalBB.addAnimal}" ajax="false"
+									class="block font-medium mb-2" style="width:500px;" />
+								<p:commandButton value="Anuluj"
+									action="#{addAnimalBB.returnToList}" immediate="true"
+									style="width:500px;" />
+							</div>
+						</div>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</h:body>
+	</ui:define>
+
+</ui:composition>
+</html>
